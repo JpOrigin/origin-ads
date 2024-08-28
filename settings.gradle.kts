@@ -20,5 +20,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Origin_Ads"
-include(":app")
+include(":sample")
 include(":originads")
