@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.origin.ads"
+    namespace = "com.origin.ads.demo"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.origin.ads"
+        applicationId = "com.origin.ads.demo"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
@@ -42,7 +42,5 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation(libs.play.services.ads)
-
-
+    implementation(project(":originads"))
 }

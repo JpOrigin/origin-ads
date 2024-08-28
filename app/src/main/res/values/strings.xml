@@ -1,1 +1,4 @@
-<resources></resources>
+<resources>
+    <string name="app_name">Ads_Demo</string>
+
+</resources>
