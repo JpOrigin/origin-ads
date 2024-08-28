@@ -1,3 +1,4 @@
+[![](https://jitpack.io/v/jporigin/origin-ads.svg)](https://jitpack.io/#jporigin/origin-ads)
 ### Gradle
 1. Add this to `build.gradle` of project gradle dependency
 
