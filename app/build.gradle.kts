@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.origin.ads.demo"
+    namespace = "com.origin.ads"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.origin.ads.demo"
+        applicationId = "com.origin.ads"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

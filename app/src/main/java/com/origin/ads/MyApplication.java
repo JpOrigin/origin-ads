@@ -1,4 +1,4 @@
-package com.origin.ads.demo;
+package com.origin.ads;
 
 import static com.origin.ads.GoogleAdsKt.initializeMobileAds;
 
