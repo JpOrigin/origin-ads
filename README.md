@@ -46,7 +46,7 @@ public void onCreate() {
  }
 ```
 ## Interstitial Ads
-> How do I use Interstitial Ads Without Any Listener/Callback
+> How do I use Interstitial ads without any listener/callback
 
 Use interstitial ads without any listener/callback:<br/>
 #### Java
@@ -70,7 +70,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
         activity.showGoogleInterstitialAd()
     }
 ```
-> How do I use Interstitial Ads With Listener/Callback
+> How do I use Interstitial ads with listener/callback
 
 Use interstitial ads with listener/callback:<br/>
 #### Java
