@@ -45,7 +45,7 @@ public void onCreate() {
         this@MyApplication.initializeMobileAds()
  }
 ```
-
+## Interstitial Ads
 > How do I use Interstitial Ads
 
 Use interstitial ads without any listener/callback:<br/>
