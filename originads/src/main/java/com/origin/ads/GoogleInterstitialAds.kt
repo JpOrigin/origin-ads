@@ -19,6 +19,14 @@ fun Activity.showGoogleInterstitialAd() {
     }
 }
 
+fun Activity.showGoogleInterstitialAd(callNextActivity: () -> Unit) {
+    if (mInterstitialAd != null) {
+        showInterstitialWithCallback(callNextActivity)
+    } else {
+        loadGoogleInterstitialAd()
+    }
+}
+
 var isInterstitialRequestAlreadyCalled = false
 fun Activity.loadGoogleInterstitialAd() {
     if (!isInterstitialRequestAlreadyCalled) {
@@ -38,17 +46,19 @@ fun Activity.loadGoogleInterstitialAd() {
     }
 }
 
-fun Activity.showInterstitialWithCallback(callback: () -> Unit) {
+fun Activity.showInterstitialWithCallback(callNextActivity: () -> Unit) {
     mInterstitialAd?.apply {
         fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
                 super.onAdDismissedFullScreenContent()
                 mInterstitialAd = null
+                callNextActivity.invoke()
             }
 
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                 super.onAdFailedToShowFullScreenContent(adError)
                 mInterstitialAd = null
+                callNextActivity.invoke()
             }
         }
         show(this@showInterstitialWithCallback)
