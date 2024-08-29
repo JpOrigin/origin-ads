@@ -1,5 +1,6 @@
 [![](https://jitpack.io/v/jporigin/origin-ads.svg)](https://jitpack.io/#jporigin/origin-ads)
 ### Gradle
+
 > 1. Add the JitPack repository to your build file
 
 Add it in your root `build.gradle` at end of repositories:<br/>
@@ -11,6 +12,7 @@ allprojects {
 	}
 }
 ```
+
 > 2. Add the dependency
 
 Add it in your app `build.gradle` at end of dependency:<br/>
@@ -22,7 +24,9 @@ dependencies {
 
 
 ### Usage
+
 > Initialize Ads SDK
+
 Add it in your `Application` at start of `onCreate()`:<br/>
 #### Java
 ```java
@@ -66,6 +70,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
         activity.showGoogleInterstitialAd()
     }
 ```
+
 Use interstitial ads with listener/callback:<br/>
 #### Java
 ```java
