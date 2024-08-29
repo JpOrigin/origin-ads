@@ -1,5 +1,5 @@
 [![](https://jitpack.io/v/jporigin/origin-ads.svg)](https://jitpack.io/#jporigin/origin-ads)
-### Gradle
+# Gradle
 
 > 1. Add the JitPack repository to your build file
 
@@ -23,7 +23,7 @@ dependencies {
 ```
 
 
-### Usage
+# Usage
 
 > Initialize Ads SDK
 
