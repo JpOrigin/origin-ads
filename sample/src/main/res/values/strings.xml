@@ -1,4 +1,61 @@
 <resources>
     <string name="app_name">Ads_Demo</string>
 
+    <string name="internet_error">internet error</string>
+    <string name="default_title">No Internet</string>
+    <string name="default_message">Check your Internet connection and try again.</string>
+    <string name="please_turn_on">Please turn on</string>
+    <string name="wifi">Wifi</string>
+    <string name="mobile_data">Mobile data</string>
+    <string name="ok">OK</string>
+    <string name="please_turn_off">Please turn off</string>
+    <string name="airplane_mode">Airplane mode</string>
+
+    <string name="select_language">Select Language</string>
+    <string name="select">Select</string>
+
+
+    <string name="main_activity">Main Activity</string>
+    <string name="first_activity">First Activity</string>
+    <string name="second_activity">Second Activity</string>
+    <string name="third_activity">Third Activity</string>
+    <string name="space_for_ads">Space For Ads</string>
+    <string name="ad">Ad</string>
+
+    <string name="native_">Native</string>
+    <string name="native_size">Native Size</string>
+    <string name="big_native">Big Native</string>
+    <string name="small_native">Small Native</string>
+    <string name="small_native_banner">Small Native Banner</string>
+    <string name="show_native">Show Native</string>
+
+    <string name="interstitial_">Interstitial</string>
+    <string name="item_click">Item Click</string>
+    <string name="on_create">onCreate()</string>
+    <string name="on_back_pressed">onBackPressed()</string>
+    <string name="show_interstitial">Show Interstitial</string>
+    <string name="interstitial_test_1">Interstitial Test 1</string>
+    <string name="interstitial_test_2">Interstitial Test 2</string>
+    <string name="interstitial_test_3">Interstitial Test 3</string>
+
+    <string name="banner_">Banner</string>
+    <string name="show_banner">Show Banner</string>
+    <string name="install">Install</string>
+
+    <string name="rate_us">Rate Us</string>
+    <string name="no_ads_activity">No Ads Activity</string>
+    <string name="ads_settings">Ads Settings</string>
+    <string name="seconds">Seconds</string>
+    <string name="in_seconds">In Seconds</string>
+    <string name="splash_interval_time">Splash Interval Time</string>
+    <string name="remote_config">Remote Config</string>
+    <string name="force_skip_config">Force Skip Config</string>
+
+
+    <string name="show_shimmer_ads">Show Shimmer Ads</string>
+    <string name="show_clone_ads">Show Clone Ads</string>
+    <string name="force_show_clone_ads">Force Show Clone Ads</string>
+    <string name="none">none</string>
+
+
 </resources>

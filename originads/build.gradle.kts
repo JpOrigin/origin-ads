@@ -34,10 +34,15 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
+    implementation(libs.timber)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
+    // Google_Ads
     implementation(libs.play.services.ads)
+    implementation(libs.user.messaging.platform)
+    // Lifecycle
+    implementation(libs.androidx.lifecycle.process)
+    implementation(libs.androidx.lifecycle.runtime)
 }
 afterEvaluate {
     publishing {

@@ -3,5 +3,30 @@
     <style name="Base.Theme.Ads.Demo" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorAccent">@color/app_color</item>
+        <item name="screenBG">#FEF7FF</item>
+        <item name="textColor">#141218</item>
+        <item name="shimmerAdsViewColor">@color/shimmer_color</item>
     </style>
+
+    <style name="Ads.Demo.Setting" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorAccent">@color/app_color</item>
+        <item name="screenBG">#FEF7FF</item>
+        <item name="textColor">#141218</item>
+        <item name="shimmerAdsViewColor">@color/shimmer_color</item>
+
+        <!-- Logo -->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 </resources>

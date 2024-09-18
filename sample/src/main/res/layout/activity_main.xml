@@ -1,21 +1,292 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLoadShow"
-        style="@style/Widget.Material3.Button.TonalButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:paddingHorizontal="26dp"
-        android:paddingVertical="12dp"
-        android:text="Load &amp; Show Google Ads"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:visibility="visible" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/open_sans_extra_bold"
+            android:text="@string/main_activity"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="15dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="@string/interstitial_"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/rgInter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/rbInterOnClick">
+
+                <RadioButton
+                    android:id="@+id/rbInterOnClick"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:enabled="true"
+                    android:fontFamily="@font/open_sans_semibold"
+
+                    android:paddingStart="10dp"
+                    android:text="@string/item_click"
+                    android:textSize="18sp"
+                    app:useMaterialThemeColors="true" />
+
+                <RadioButton
+                    android:id="@+id/rbInterOnCreate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:checked="false"
+                    android:enabled="true"
+                    android:fontFamily="@font/open_sans_semibold"
+
+                    android:paddingStart="10dp"
+                    android:text="@string/on_create"
+                    android:textSize="18sp"
+                    app:useMaterialThemeColors="true" />
+
+                <RadioButton
+                    android:id="@+id/rbInterOnBackPressed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:checked="false"
+                    android:enabled="true"
+                    android:fontFamily="@font/open_sans_semibold"
+
+                    android:paddingStart="10dp"
+                    android:text="@string/on_back_pressed"
+                    android:textSize="18sp"
+                    app:useMaterialThemeColors="true" />
+            </RadioGroup>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnShowInterstitial"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="6dp"
+                android:fontFamily="@font/open_sans_bold"
+                android:paddingHorizontal="26dp"
+                android:paddingVertical="12dp"
+                android:text="@string/show_interstitial"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:visibility="visible" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="@string/native_size"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/rgNativeSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/rbBigNative">
+
+                <RadioButton
+                    android:id="@+id/rbBigNative"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:enabled="true"
+                    android:fontFamily="@font/open_sans_semibold"
+
+                    android:paddingStart="10dp"
+                    android:text="@string/big_native"
+                    android:textSize="18sp"
+                    app:useMaterialThemeColors="true" />
+
+                <RadioButton
+                    android:id="@+id/rbSmallNative"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:checked="false"
+                    android:enabled="true"
+                    android:fontFamily="@font/open_sans_semibold"
+
+                    android:paddingStart="10dp"
+                    android:text="@string/small_native"
+                    android:textSize="18sp"
+                    app:useMaterialThemeColors="true" />
+
+                <RadioButton
+                    android:id="@+id/rbSmallNativeBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:checked="false"
+                    android:enabled="true"
+                    android:fontFamily="@font/open_sans_semibold"
+
+                    android:paddingStart="10dp"
+                    android:text="@string/small_native_banner"
+                    android:textSize="18sp"
+                    app:useMaterialThemeColors="true" />
+            </RadioGroup>
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switchShowShimmerNativeAds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="@string/show_shimmer_ads"
+                android:textSize="18sp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switchNativeCloneAds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="@string/show_clone_ads"
+                android:textSize="18sp" />
+
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switchNativeForceCloneAds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="@string/force_show_clone_ads"
+                android:textSize="18sp" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnShowNative"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="6dp"
+                android:fontFamily="@font/open_sans_bold"
+                android:paddingHorizontal="26dp"
+                android:paddingVertical="12dp"
+                android:text="@string/show_native"
+                android:textSize="18sp"
+                android:visibility="visible" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switchShowShimmerBannerAds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="@string/show_shimmer_ads"
+                android:textSize="18sp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switchBannerCloneAds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="@string/show_clone_ads"
+                android:textSize="18sp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switchBannerForceCloneAds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="@string/force_show_clone_ads"
+                android:textSize="18sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBanner"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="6dp"
+                android:paddingHorizontal="26dp"
+                android:paddingVertical="12dp"
+                android:text="@string/show_banner"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:visibility="visible" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRateUs"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="6dp"
+                android:paddingHorizontal="26dp"
+                android:paddingVertical="12dp"
+                android:text="@string/rate_us"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:visibility="visible" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="@string/no_ads_activity"
+                android:textSize="18sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSettings"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="6dp"
+                android:paddingHorizontal="26dp"
+                android:paddingVertical="12dp"
+                android:text="@string/ads_settings"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
 </LinearLayout>

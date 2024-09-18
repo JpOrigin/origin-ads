@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?screenBG"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:contentDescription="@string/none"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_toLeftOf="@+id/tvSelect"
+            android:layout_toRightOf="@+id/ivBack"
+            android:fontFamily="@font/open_sans_extra_bold"
+            android:maxLines="1"
+            android:paddingEnd="8dp"
+            android:text="@string/select_language"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/btn_bg"
+            android:fontFamily="@font/open_sans_bold"
+            android:paddingHorizontal="22dp"
+            android:paddingVertical="6dp"
+            android:text="@string/select"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/includeGoogleNative"
+        layout="@layout/google_native"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="2dp" />
+
+
+</RelativeLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="screenBG" format="reference|color" />
+    <attr name="textColor" format="reference|color" />
+    <attr name="shimmerAdsViewColor" format="reference|color" />
+</resources>
