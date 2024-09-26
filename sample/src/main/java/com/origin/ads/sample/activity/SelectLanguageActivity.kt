@@ -31,6 +31,10 @@ import com.origin.ads.sample.utils.populateNativeXXLAdView
 
 class SelectLanguageActivity : AppCompatActivity() {
 
+    companion object {
+        var mGoogleNativePreLoadAds2: GoogleNativePreLoadAds? = null
+    }
+
     private lateinit var mActivitySelectLanguageBinding: ActivitySelectLanguageBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,30 +46,63 @@ class SelectLanguageActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         mActivitySelectLanguageBinding.tvSelect.setOnClickListener {
             this@SelectLanguageActivity.mAdsSharedPref.mAppLanguage = "en"
             startMyNextActivity()
         }
-        initGoogleNativeAds()
+        showGoogleNativeXxlAd()
+        mActivitySelectLanguageBinding.ivBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 startMyNextActivity()
             }
         })
+        initializeNativePreLoadAds()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mGoogleNativePreLoadAds?.destroyPreLoadedAds()
     }
 
 
     private fun startMyNextActivity() {
-        Intent(this@SelectLanguageActivity, MainActivity::class.java).apply {
-            this@SelectLanguageActivity.startActivity(this)
-            this@SelectLanguageActivity.finish()
+        if (this@SelectLanguageActivity.mAdsSharedPref.mIsShowedHelpScreen) {
+            Intent(this@SelectLanguageActivity, MainActivity::class.java).apply {
+                this@SelectLanguageActivity.startActivity(this)
+                this@SelectLanguageActivity.finish()
+            }
+        } else {
+            Intent(this@SelectLanguageActivity, HelpActivity::class.java).apply {
+                this@SelectLanguageActivity.startActivity(this)
+                this@SelectLanguageActivity.finish()
+            }
         }
     }
 
     /***
+     * initialize native ads
+     * */
+    private fun initializeNativePreLoadAds() {
+        if (
+            !this@SelectLanguageActivity.mAdsSharedPref.mIsShowedHelpScreen && this@SelectLanguageActivity.mAdsSharedPref.mAppLanguage.isEmpty() &&
+            !this@SelectLanguageActivity.mAdsSharedPref.mIsSkipAllNativeAds && !this@SelectLanguageActivity.mAdsSharedPref.mIsForceNativeCloneAds
+        ) {
+            if (mGoogleNativePreLoadAds2 == null) {
+                mGoogleNativePreLoadAds2 = GoogleNativePreLoadAds(2)
+            }
+            mGoogleNativePreLoadAds2?.load(this@SelectLanguageActivity, this@SelectLanguageActivity.mAdsSharedPref.mHelpNativeAds)
+        }
+    }
+
+
+    /***
      * check and show NativeAds
      * */
-    private fun initGoogleNativeAds() {
+    private fun showGoogleNativeXxlAd() {
         if (this@SelectLanguageActivity.mAdsSharedPref.mIsSkipAllNativeAds) {
             mActivitySelectLanguageBinding.includeGoogleNative.rlMainGoogleNative.beGone()
             return
@@ -100,18 +137,12 @@ class SelectLanguageActivity : AppCompatActivity() {
             mActivitySelectLanguageBinding.includeGoogleNative.spMain.setLayoutParams(params)
         }
 
-        // Used_For_Get_Native_Ads_Id
-        val adUnitId = if (this@SelectLanguageActivity.mAdsSharedPref.mIsForceShowOfflineAllNativeAds) {
-            this@SelectLanguageActivity.mAdsSharedPref.mOfflineNativeAds
-        } else {
-            this@SelectLanguageActivity.mAdsSharedPref.mNativeAds
-        }
         // Used_For_Load_Native_Ads
         if (!this@SelectLanguageActivity.mAdsSharedPref.mIsForceNativeCloneAds) {
             if (mGoogleNativePreLoadAds == null) {
-                mGoogleNativePreLoadAds = GoogleNativePreLoadAds()
+                mGoogleNativePreLoadAds = GoogleNativePreLoadAds(1)
             }
-            mGoogleNativePreLoadAds?.show(this@SelectLanguageActivity, adUnitId, object : NativeAdsCallback {
+            mGoogleNativePreLoadAds?.show(this@SelectLanguageActivity, this@SelectLanguageActivity.mAdsSharedPref.mLanguageNativeAds, object : NativeAdsCallback {
                 override fun onNativeAdLoaded(nativeAd: NativeAd) {
                     mActivitySelectLanguageBinding.includeGoogleNative.flSpaceLayout.beGone()
                     mActivitySelectLanguageBinding.includeGoogleNative.flShimmerGoogleNative.beGone()
@@ -121,6 +152,7 @@ class SelectLanguageActivity : AppCompatActivity() {
                         mActivitySelectLanguageBinding.includeGoogleNative.flGoogleNative.addView(this.root)
                     }
                 }
+
                 override fun onNativeAdFailedToLoad() {
                     showCloneNativeXxlAd()
                 }
@@ -129,6 +161,7 @@ class SelectLanguageActivity : AppCompatActivity() {
             showCloneNativeXxlAd()
         }
     }
+
     private fun showCloneNativeXxlAd() {
         if (this@SelectLanguageActivity.mAdsSharedPref.mIsNativeCloneAds && mCloneAdsDataList.isNotEmpty()) {
             mActivitySelectLanguageBinding.includeGoogleNative.flSpaceLayout.beGone()

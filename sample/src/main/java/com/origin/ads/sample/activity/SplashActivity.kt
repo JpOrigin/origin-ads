@@ -26,6 +26,7 @@ import com.origin.ads.sample.remotedata.isConfigDataFetched
 import com.origin.ads.sample.remotedata.loadConfigData
 import com.origin.ads.sample.utils.isNetworkAvailable
 import com.origin.ads.splashopenads.GoogleSplashAppOpenAdManager
+import com.origin.ads.utils.logE
 
 
 class SplashActivity : AppCompatActivity() {
@@ -94,7 +95,7 @@ class SplashActivity : AppCompatActivity() {
         updateUI()
         hideNetworkDialog()
         getRemoteConfigData(isFromCreate)
-        checkInitializeLoadSplashAds(isFromCreate)
+        checkInitializeLoadSplashAds()
         if (mSplashHandler == null) {
             mSplashHandler = Handler(Looper.getMainLooper())
         }
@@ -106,22 +107,27 @@ class SplashActivity : AppCompatActivity() {
         mSplashHandler?.postDelayed(mSplashRunnable!!, splashDelayMillis)
     }
 
-    // get remote config data
+    /***
+     *
+     * Get/Load Remote Config Data
+     *
+     * */
     private fun getRemoteConfigData(fromCreate: Boolean) {
         if (fromCreate) {
             isConfigDataFetched = false
         }
         loadConfigData {
             runOnUiThread {
-                checkInitializeLoadSplashAds(false)
-                initializeFirstNativeAds()
+                checkInitializeLoadSplashAds()
+                initializeNativePreLoadAds()
                 loadCloneAdsData()
             }
         }
     }
-    // get remote config data
 
-    // initialize splash ads
+    /***
+     * Initialize Google_Splash_AppOpen_Ads
+     * */
     private val mOnShowAdCompleteListener = object : GoogleSplashAppOpenAdManager.OnShowAdCompleteListener {
         override fun onShowAd() {
             mActivitySplashBinding.pbSplash.clearAnimation()
@@ -132,35 +138,27 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkInitializeLoadSplashAds(isFromCreate: Boolean = false) {
+    private fun checkInitializeLoadSplashAds() {
         if (mSplashAppOpenAdManager == null) {
             mSplashAppOpenAdManager = GoogleSplashAppOpenAdManager()
         }
         mSplashAppOpenAdManager?.showAdIfAvailableWithDelay(this@SplashActivity, mOnShowAdCompleteListener)
-        if (!this@SplashActivity.mAdsSharedPref.mIsSkipSplashOpenAds && isFromCreate && this@SplashActivity.mAdsSharedPref.mIsForceShowOfflineSplashOpenAds) {
-            mSplashAppOpenAdManager?.loadAd(this@SplashActivity, this@SplashActivity.mAdsSharedPref.mOfflineSplashOpenAds, mOnShowAdCompleteListener)
-            return
-        } else if (!this@SplashActivity.mAdsSharedPref.mIsSkipSplashOpenAds && !isFromCreate && !this@SplashActivity.mAdsSharedPref.mIsForceShowOfflineSplashOpenAds) {
+        if (!this@SplashActivity.mAdsSharedPref.mIsSkipSplashOpenAds) {
             mSplashAppOpenAdManager?.loadAd(this@SplashActivity, this@SplashActivity.mAdsSharedPref.mSplashOpenAds, mOnShowAdCompleteListener)
         }
     }
-    // initialize splash ads
 
-    // initialize first native ads
-    private fun initializeFirstNativeAds() {
-        if (this@SplashActivity.mAdsSharedPref.mAppLanguage.isEmpty() && !this@SplashActivity.mAdsSharedPref.mIsSkipAllNativeAds) {
-            val adUnitId = if (this@SplashActivity.mAdsSharedPref.mIsForceShowOfflineAllNativeAds) {
-                this@SplashActivity.mAdsSharedPref.mOfflineNativeAds
-            } else {
-                this@SplashActivity.mAdsSharedPref.mNativeAds
-            }
+    /***
+     * Initialize Google_Native_Pre_Load_Ads
+     * */
+    private fun initializeNativePreLoadAds() {
+        if (this@SplashActivity.mAdsSharedPref.mAppLanguage.isEmpty() && !this@SplashActivity.mAdsSharedPref.mIsSkipAllNativeAds && !this@SplashActivity.mAdsSharedPref.mIsForceNativeCloneAds) {
             if (mGoogleNativePreLoadAds == null) {
-                mGoogleNativePreLoadAds = GoogleNativePreLoadAds()
+                mGoogleNativePreLoadAds = GoogleNativePreLoadAds(1)
             }
-            mGoogleNativePreLoadAds?.load(this@SplashActivity, adUnitId)
+            mGoogleNativePreLoadAds?.load(this@SplashActivity, this@SplashActivity.mAdsSharedPref.mLanguageNativeAds)
         }
     }
-    // initialize first native ads
 
     // start next activity
     private fun startMyNextActivity() {
@@ -179,7 +177,11 @@ class SplashActivity : AppCompatActivity() {
     // start next activity
 
 
-    // check network
+    /***
+     *
+     * Check Network Connection
+     *
+     * */
     var mIsNetworkAvailable = false
     private fun checkNetwork() {
         val networkRequest = NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
@@ -200,9 +202,12 @@ class SplashActivity : AppCompatActivity() {
         val connectivityManager = getSystemService(ConnectivityManager::class.java) as ConnectivityManager
         connectivityManager.requestNetwork(networkRequest, networkCallback)
     }
-    // check network
 
-    // network dialog
+    /***
+     *
+     * No Network Dialog
+     *
+     * */
     private var mNetworkDialog: NetworkDialog? = null
     private fun initNetworkDialog() {
         if (mNetworkDialog == null) {
@@ -225,5 +230,4 @@ class SplashActivity : AppCompatActivity() {
             mNetworkDialog?.dismiss()
         }
     }
-    // network dialog
 }

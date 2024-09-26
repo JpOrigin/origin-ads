@@ -36,6 +36,9 @@ class GoogleInterstitialAds {
 
     private var adIsLoading: Boolean = false
     fun load(activity: Activity, adUnitId: String) {
+        if (adUnitId.isEmpty() || adUnitId.startsWith(" ") || adUnitId == "none") {
+            return
+        }
         if (!activity.isNetworkAvailable()) {
             return
         }
@@ -81,17 +84,19 @@ class GoogleInterstitialAds {
         if (mInterstitialAd != null && isShownCheck()) {
             mInterstitialAd?.apply {
                 this.fullScreenContentCallback = object : FullScreenContentCallback() {
+                    override fun onAdImpression() {
+                        super.onAdImpression()
+                        logE("glInterAds::show:adShowed")
+                    }
                     override fun onAdShowedFullScreenContent() {
                         super.onAdShowedFullScreenContent()
-                        logE("glInterAds::show:ShowedAds")
                         GoogleAppOpenAdManager.pauseAppOpenAds()
                         mCurrentInterCountSession += 1
                     }
 
                     override fun onAdDismissedFullScreenContent() {
                         super.onAdDismissedFullScreenContent()
-                        logE("glInterAds::show:DismissedAds")
-
+                        logE("glInterAds::show:adDismissed")
                         mInterstitialAd = null
                         GoogleAppOpenAdManager.resumeAppOpenAds()
                         adsCallback.invoke()
@@ -101,13 +106,12 @@ class GoogleInterstitialAds {
 
                     override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                         super.onAdFailedToShowFullScreenContent(adError)
-                        logE("glInterAds::show:FailedToShow:: ${adError.message}")
+                        logE("glInterAds::show:adFailedToShow:: ${adError.message}")
                         mInterstitialAd = null
                         adsCallback.invoke()
                     }
                 }
                 this.show(activity)
-                logE("glInterAds::show:callShowAds")
             }
         } else {
             load(activity, adUnitId)

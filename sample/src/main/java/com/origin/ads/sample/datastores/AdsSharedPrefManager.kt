@@ -5,15 +5,13 @@ import com.origin.ads.sample.datastores.AdsDataStoreKeys.APP_OPEN_ADS_KEY
 import com.origin.ads.sample.datastores.AdsDataStoreKeys.BANNER_ADS_KEY
 import com.origin.ads.sample.datastores.AdsDataStoreKeys.CLONE_ADS_AC_NAME_KEY
 import com.origin.ads.sample.datastores.AdsDataStoreKeys.CLONE_ADS_URL_KEY
-import com.origin.ads.sample.datastores.AdsDataStoreKeys.FORCE_SHOW_OFFLINE_ALL_BANNER_ADS_KEY
-import com.origin.ads.sample.datastores.AdsDataStoreKeys.FORCE_SHOW_OFFLINE_ALL_NATIVE_ADS_KEY
-import com.origin.ads.sample.datastores.AdsDataStoreKeys.FORCE_SHOW_OFFLINE_APP_OPEN_ADS_KEY
-import com.origin.ads.sample.datastores.AdsDataStoreKeys.FORCE_SHOW_OFFLINE_SPLASH_OPEN_ADS_KEY
+import com.origin.ads.sample.datastores.AdsDataStoreKeys.HELP_NATIVE_ADS_KEY
 import com.origin.ads.sample.datastores.AdsDataStoreKeys.INTERSTITIAL_ADS_KEY
 import com.origin.ads.sample.datastores.AdsDataStoreKeys.IS_BANNER_CLONE_ADS_KEY
 import com.origin.ads.sample.datastores.AdsDataStoreKeys.IS_FORCE_BANNER_CLONE_ADS_KEY
 import com.origin.ads.sample.datastores.AdsDataStoreKeys.IS_FORCE_NATIVE_CLONE_ADS_KEY
 import com.origin.ads.sample.datastores.AdsDataStoreKeys.IS_NATIVE_CLONE_ADS_KEY
+import com.origin.ads.sample.datastores.AdsDataStoreKeys.LANGUAGE_NATIVE_ADS_KEY
 import com.origin.ads.sample.datastores.AdsDataStoreKeys.NATIVE_ADS_KEY
 import com.origin.ads.sample.datastores.AdsDataStoreKeys.SHOW_BANNER_SHIMMER_LAYOUT_KEY
 import com.origin.ads.sample.datastores.AdsDataStoreKeys.SKIP_ALL_BANNER_ADS_KEY
@@ -34,52 +32,42 @@ class AdsSharedPrefManager(mContext: Context) {
 
     /***
      * SplashOpenAdsGroup */
-    var mIsForceShowOfflineSplashOpenAds: Boolean // false = online ads with online Ids, true = offline ads with offline Ids
-        get() = mSharedPref!!.getBoolean(FORCE_SHOW_OFFLINE_SPLASH_OPEN_ADS_KEY, false)
-        set(booleanValue) = mSharedPref!!.edit().putBoolean(FORCE_SHOW_OFFLINE_SPLASH_OPEN_ADS_KEY, booleanValue).apply()
     var mIsSkipSplashOpenAds: Boolean
         get() = mSharedPref!!.getBoolean(SKIP_SPLASH_OPEN_ADS_KEY, false)
         set(booleanValue) = mSharedPref!!.edit().putBoolean(SKIP_SPLASH_OPEN_ADS_KEY, booleanValue).apply()
-    val mOfflineSplashOpenAds = "/21775744923/example/app-open"
+
     var mSplashOpenAds: String
-        get() = mSharedPref!!.getString(SPLASH_OPEN_ADS_KEY, mOfflineSplashOpenAds) ?: mOfflineSplashOpenAds
+        get() = mSharedPref!!.getString(SPLASH_OPEN_ADS_KEY, splashOpenAds) ?: splashOpenAds
         set(stringValue) = mSharedPref!!.edit().putString(SPLASH_OPEN_ADS_KEY, stringValue).apply()
 
     /***
      * AppOpenAdsGroup */
-    var mIsForceShowOfflineAppOpenAds: Boolean // false = online ads with online Ids, true = offline ads with offline Ids
-        get() = mSharedPref!!.getBoolean(FORCE_SHOW_OFFLINE_APP_OPEN_ADS_KEY, false)
-        set(booleanValue) = mSharedPref!!.edit().putBoolean(FORCE_SHOW_OFFLINE_APP_OPEN_ADS_KEY, booleanValue).apply()
     var mIsSkipAppOpenAds: Boolean
         get() = mSharedPref!!.getBoolean(SKIP_APP_OPEN_ADS_KEY, false)
         set(booleanValue) = mSharedPref!!.edit().putBoolean(SKIP_APP_OPEN_ADS_KEY, booleanValue).apply()
-    val mOfflineAppOpenAds = "/21775744923/example/app-open"
+
     var mAppOpenAds: String
-        get() = mSharedPref!!.getString(APP_OPEN_ADS_KEY, mOfflineAppOpenAds) ?: mOfflineAppOpenAds
+        get() = mSharedPref!!.getString(APP_OPEN_ADS_KEY, appOpenAds) ?: appOpenAds
         set(stringValue) = mSharedPref!!.edit().putString(APP_OPEN_ADS_KEY, stringValue).apply()
 
     /***
      * InterstitialAdsGroup */
     var mMaxInterPerSession: Int
-        get() = mSharedPref!!.getInt(AdsDataStoreKeys.MAX_INTER_PER_SESSION_KEY, 3)
+        get() = mSharedPref!!.getInt(AdsDataStoreKeys.MAX_INTER_PER_SESSION_KEY, maxInterPerSession)
         set(intValue) = mSharedPref!!.edit().putInt(AdsDataStoreKeys.MAX_INTER_PER_SESSION_KEY, intValue).apply()
     var mGapBetweenInterAdsSkipPosition: Int
-        get() = mSharedPref!!.getInt(AdsDataStoreKeys.GAP_BETWEEN_INTER_ADS_SKIP_POSITION_KEY, 2)
+        get() = mSharedPref!!.getInt(AdsDataStoreKeys.GAP_BETWEEN_INTER_ADS_SKIP_POSITION_KEY, gapBetweenInterAdsSkipPosition)
         set(intValue) = mSharedPref!!.edit().putInt(AdsDataStoreKeys.GAP_BETWEEN_INTER_ADS_SKIP_POSITION_KEY, intValue).apply()
     var mGapBetweenInterAdsInSecond: Int
-        get() = mSharedPref!!.getInt(AdsDataStoreKeys.GAP_BETWEEN_INTER_ADS_IN_SECOND_KEY, 10)
+        get() = mSharedPref!!.getInt(AdsDataStoreKeys.GAP_BETWEEN_INTER_ADS_IN_SECOND_KEY, gapBetweenInterAdsInSecond)
         set(intValue) = mSharedPref!!.edit().putInt(AdsDataStoreKeys.GAP_BETWEEN_INTER_ADS_IN_SECOND_KEY, intValue).apply()
-    val mOfflineInterstitialAds = "/21775744923/example/interstitial"
     var mInterstitialAds: String
-        get() = mSharedPref!!.getString(INTERSTITIAL_ADS_KEY, mOfflineInterstitialAds) ?: mOfflineInterstitialAds
+        get() = mSharedPref!!.getString(INTERSTITIAL_ADS_KEY, interstitialAds) ?: interstitialAds
         set(stringValue) = mSharedPref!!.edit().putString(INTERSTITIAL_ADS_KEY, stringValue).apply()
 
 
     /***
      * AllNativeAdsGroup */
-    var mIsForceShowOfflineAllNativeAds: Boolean // false = online ads with online Ids, true = offline ads with offline Ids
-        get() = mSharedPref!!.getBoolean(FORCE_SHOW_OFFLINE_ALL_NATIVE_ADS_KEY, false)
-        set(booleanValue) = mSharedPref!!.edit().putBoolean(FORCE_SHOW_OFFLINE_ALL_NATIVE_ADS_KEY, booleanValue).apply()
     var mIsSkipAllNativeAds: Boolean
         get() = mSharedPref!!.getBoolean(SKIP_ALL_NATIVE_ADS_KEY, false)
         set(booleanValue) = mSharedPref!!.edit().putBoolean(SKIP_ALL_NATIVE_ADS_KEY, booleanValue).apply()
@@ -95,17 +83,19 @@ class AdsSharedPrefManager(mContext: Context) {
 
     /***
      * NativeAdsGroup */
-    val mOfflineNativeAds = "/21775744923/example/native"
+    var mLanguageNativeAds: String
+        get() = mSharedPref!!.getString(LANGUAGE_NATIVE_ADS_KEY, languageNativeAds) ?: languageNativeAds
+        set(stringValue) = mSharedPref!!.edit().putString(LANGUAGE_NATIVE_ADS_KEY, stringValue).apply()
+    var mHelpNativeAds: String
+        get() = mSharedPref!!.getString(HELP_NATIVE_ADS_KEY, helpNativeAds) ?: helpNativeAds
+        set(stringValue) = mSharedPref!!.edit().putString(HELP_NATIVE_ADS_KEY, stringValue).apply()
     var mNativeAds: String
-        get() = mSharedPref!!.getString(NATIVE_ADS_KEY, mOfflineNativeAds) ?: mOfflineNativeAds
+        get() = mSharedPref!!.getString(NATIVE_ADS_KEY, nativeAds) ?: nativeAds
         set(stringValue) = mSharedPref!!.edit().putString(NATIVE_ADS_KEY, stringValue).apply()
 
 
     /***
      * AllBannerAdsGroup */
-    var mIsForceShowOfflineAllBannerAds: Boolean // false = online ads with online Ids, true = offline ads with offline Ids
-        get() = mSharedPref!!.getBoolean(FORCE_SHOW_OFFLINE_ALL_BANNER_ADS_KEY, false)
-        set(booleanValue) = mSharedPref!!.edit().putBoolean(FORCE_SHOW_OFFLINE_ALL_BANNER_ADS_KEY, booleanValue).apply()
     var mIsSkipAllBannerAds: Boolean
         get() = mSharedPref!!.getBoolean(SKIP_ALL_BANNER_ADS_KEY, false)
         set(booleanValue) = mSharedPref!!.edit().putBoolean(SKIP_ALL_BANNER_ADS_KEY, booleanValue).apply()
@@ -121,9 +111,8 @@ class AdsSharedPrefManager(mContext: Context) {
 
     /***
      * BannerAdsGroup */
-    val mOfflineBannerAds = "/21775744923/example/adaptive-banner"
     var mBannerAds: String
-        get() = mSharedPref!!.getString(BANNER_ADS_KEY, mOfflineBannerAds) ?: mOfflineBannerAds
+        get() = mSharedPref!!.getString(BANNER_ADS_KEY, bannerAds) ?: bannerAds
         set(stringValue) = mSharedPref!!.edit().putString(BANNER_ADS_KEY, stringValue).apply()
 
 
@@ -138,7 +127,6 @@ class AdsSharedPrefManager(mContext: Context) {
 
 
     //
-
     var splashIntervalInSeconds: Int
         get() = mSharedPref!!.getInt("splashInterval", 10)
         set(intValue) = mSharedPref!!.edit().putInt("splashInterval", intValue).apply()
@@ -150,4 +138,8 @@ class AdsSharedPrefManager(mContext: Context) {
     var mAppLanguage: String
         get() = mSharedPref!!.getString("appLanguage", "") ?: ""
         set(stringValue) = mSharedPref!!.edit().putString("appLanguage", stringValue).apply()
+
+    var mIsShowedHelpScreen: Boolean
+        get() = mSharedPref!!.getBoolean("isShowedHelpScreen", false)
+        set(booleanValue) = mSharedPref!!.edit().putBoolean("isShowedHelpScreen", booleanValue).apply()
 }

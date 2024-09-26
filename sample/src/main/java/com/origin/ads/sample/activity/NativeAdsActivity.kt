@@ -65,6 +65,12 @@ class NativeAdsActivity : AppCompatActivity() {
         }
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mGoogleNativeAds?.destroyLoadedAds()
+    }
+    private var mGoogleNativeAds: GoogleNativeAds? = null
     private fun showGoogleNativeXlAd() {
         if (this@NativeAdsActivity.mAdsSharedPref.mIsSkipAllNativeAds) {
             mActivityNativeAdsBinding.includeGoogleNative.rlMainGoogleNative.beGone()
@@ -87,16 +93,12 @@ class NativeAdsActivity : AppCompatActivity() {
             params.width = FrameLayout.LayoutParams.MATCH_PARENT
             mActivityNativeAdsBinding.includeGoogleNative.spMain.setLayoutParams(params)
         }
-        // Used_For_Get_Native_Ads_Id
-        val adUnitId = if (this@NativeAdsActivity.mAdsSharedPref.mIsForceShowOfflineAllNativeAds) {
-            this@NativeAdsActivity.mAdsSharedPref.mOfflineNativeAds
-        } else {
-            this@NativeAdsActivity.mAdsSharedPref.mNativeAds
-        }
-
         // Used_For_Load_Native_Ads
         if (!this@NativeAdsActivity.mAdsSharedPref.mIsForceNativeCloneAds) {
-            GoogleNativeAds().show(this@NativeAdsActivity, adUnitId, object : NativeAdsCallback {
+            if(mGoogleNativeAds == null){
+                mGoogleNativeAds = GoogleNativeAds()
+            }
+            mGoogleNativeAds?.show(this@NativeAdsActivity, this@NativeAdsActivity.mAdsSharedPref.mNativeAds, object : NativeAdsCallback {
                 override fun onNativeAdLoaded(nativeAd: NativeAd) {
                     mActivityNativeAdsBinding.includeGoogleNative.flSpaceLayout.beGone()
                     mActivityNativeAdsBinding.includeGoogleNative.flShimmerGoogleNative.beGone()
@@ -150,15 +152,12 @@ class NativeAdsActivity : AppCompatActivity() {
             params.width = FrameLayout.LayoutParams.MATCH_PARENT
             mActivityNativeAdsBinding.includeGoogleNative.spMain.setLayoutParams(params)
         }
-        // Used_For_Get_Native_Ads_Id
-        val adUnitId = if (this@NativeAdsActivity.mAdsSharedPref.mIsForceShowOfflineAllNativeAds) {
-            this@NativeAdsActivity.mAdsSharedPref.mOfflineNativeAds
-        } else {
-            this@NativeAdsActivity.mAdsSharedPref.mNativeAds
-        }
         // Used_For_Load_Native_Ads
         if (!this@NativeAdsActivity.mAdsSharedPref.mIsForceNativeCloneAds) {
-            GoogleNativeAds().show(this@NativeAdsActivity, adUnitId, object : NativeAdsCallback {
+            if(mGoogleNativeAds == null){
+                mGoogleNativeAds = GoogleNativeAds()
+            }
+            mGoogleNativeAds?.show(this@NativeAdsActivity, this@NativeAdsActivity.mAdsSharedPref.mNativeAds, object : NativeAdsCallback {
                 override fun onNativeAdLoaded(nativeAd: NativeAd) {
                     mActivityNativeAdsBinding.includeGoogleNative.flSpaceLayout.beGone()
                     mActivityNativeAdsBinding.includeGoogleNative.flShimmerGoogleNative.beGone()
@@ -196,6 +195,7 @@ class NativeAdsActivity : AppCompatActivity() {
             return
         }
         mActivityNativeAdsBinding.includeGoogleNative.rlMainGoogleNative.beVisible()
+
         // Used_For_Shimmer_Layout
         val mScHeight = if (this@NativeAdsActivity.getScreenHeight() / 5 > 300) {
             (this@NativeAdsActivity.getScreenHeight() / 5)
@@ -224,15 +224,12 @@ class NativeAdsActivity : AppCompatActivity() {
             mActivityNativeAdsBinding.includeGoogleNative.spMain.setLayoutParams(params)
         }
 
-        // Used_For_Get_Native_Ads_Id
-        val adUnitId = if (this@NativeAdsActivity.mAdsSharedPref.mIsForceShowOfflineAllNativeAds) {
-            this@NativeAdsActivity.mAdsSharedPref.mOfflineNativeAds
-        } else {
-            this@NativeAdsActivity.mAdsSharedPref.mNativeAds
-        }
         // Used_For_Load_Native_Ads
         if (!this@NativeAdsActivity.mAdsSharedPref.mIsForceNativeCloneAds) {
-            GoogleNativeAds().show(this@NativeAdsActivity, adUnitId, object : NativeAdsCallback {
+            if(mGoogleNativeAds == null){
+                mGoogleNativeAds = GoogleNativeAds()
+            }
+            mGoogleNativeAds?.show(this@NativeAdsActivity, this@NativeAdsActivity.mAdsSharedPref.mNativeAds, object : NativeAdsCallback {
                 override fun onNativeAdLoaded(nativeAd: NativeAd) {
                     mActivityNativeAdsBinding.includeGoogleNative.flSpaceLayout.beGone()
                     mActivityNativeAdsBinding.includeGoogleNative.flShimmerGoogleNative.beGone()

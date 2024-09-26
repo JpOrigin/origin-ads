@@ -162,6 +162,9 @@ class GoogleAppOpenAdManager : ActivityLifecycleCallbacks, LifecycleEventObserve
         if (isAdAvailable() || isLoadingAppOpenAd) {
             return
         }
+        if (mAdsUnitId.isEmpty() || mAdsUnitId.startsWith(" ") || mAdsUnitId == "none") {
+            return
+        }
         if (isSkipAppOpenAds) {
             destroyAppOpenAds()
             return
@@ -204,26 +207,25 @@ class GoogleAppOpenAdManager : ActivityLifecycleCallbacks, LifecycleEventObserve
         mActivity?.apply {
             if (!isShowingAppOpenAd && isAnyActivityPaused == 0 && isEventOnStartCalled && isAdAvailable()) {
                 mAppOpenAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+                    override fun onAdImpression() {
+                        super.onAdImpression()
+                        logE("glAppOpenAds::show:adShowed")
+                    }
                     override fun onAdDismissedFullScreenContent() {
-                        logE("glAppOpenAds::show:DismissedAds")
+                        logE("glAppOpenAds::show:adDismissed")
                         mAppOpenAd = null
                         isShowingAppOpenAd = false
                         loadAd(this@apply)
                     }
 
                     override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                        logE("glAppOpenAds::show:FailedToShow:: ${adError.message}")
+                        logE("glAppOpenAds::show:adFailedToShow:: ${adError.message}")
                         mAppOpenAd = null
                         isShowingAppOpenAd = false
-                    }
-
-                    override fun onAdShowedFullScreenContent() {
-                        logE("glAppOpenAds::show:ShowedAds")
                     }
                 }
                 isShowingAppOpenAd = true
                 mAppOpenAd?.show(this)
-                logE("glAppOpenAds::show:callShowAds")
             } else {
                 loadAd(this)
             }
@@ -246,4 +248,6 @@ class GoogleAppOpenAdManager : ActivityLifecycleCallbacks, LifecycleEventObserve
             }
         }, screenStateFilter)
     }
+
+
 }

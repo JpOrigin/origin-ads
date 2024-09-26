@@ -14,6 +14,8 @@
     <string name="select_language">Select Language</string>
     <string name="select">Select</string>
 
+    <string name="how_to_use">How To Use</string>
+    <string name="done">Done</string>
 
     <string name="main_activity">Main Activity</string>
     <string name="first_activity">First Activity</string>
@@ -56,6 +58,7 @@
     <string name="show_clone_ads">Show Clone Ads</string>
     <string name="force_show_clone_ads">Force Show Clone Ads</string>
     <string name="none">none</string>
+
 
 
 </resources>

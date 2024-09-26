@@ -3,8 +3,6 @@ package com.origin.ads.sample.datastores
 import androidx.datastore.preferences.core.booleanPreferencesKey
 
 object AdsDataStoreKeys {
-    val FORCE_SHOW_OFFLINE_SPLASH_OPEN_ADS_KEY = "isForceShowOfflineSplashOpenAds"
-    val FORCE_SHOW_OFFLINE_SPLASH_OPEN_ADS = booleanPreferencesKey("isForceShowOfflineSplashOpenAds")
 
     val SKIP_SPLASH_OPEN_ADS_KEY = "isSkipSplashOpenAds"
     val SKIP_SPLASH_OPEN_ADS = booleanPreferencesKey("isSkipSplashOpenAds")
@@ -12,26 +10,14 @@ object AdsDataStoreKeys {
     val SPLASH_OPEN_ADS_KEY = "SplashOpenAds"
     val SPLASH_OPEN_ADS = booleanPreferencesKey("SplashOpenAds")
 
-    val FORCE_SHOW_OFFLINE_APP_OPEN_ADS_KEY = "isForceShowOfflineAppOpenAds"
-    val FORCE_SHOW_OFFLINE_APP_OPEN_ADS = booleanPreferencesKey("isForceShowOfflineAppOpenAds")
-
     val SKIP_APP_OPEN_ADS_KEY = "isSkipAppOpenAds"
     val SKIP_APP_OPEN_ADS = booleanPreferencesKey("isSkipAppOpenAds")
 
     val APP_OPEN_ADS_KEY = "AppOpenAds"
     val APP_OPEN_ADS = booleanPreferencesKey("AppOpenAds")
 
-    val FORCE_SHOW_OFFLINE_ALL_NATIVE_ADS_KEY = "isForceShowOfflineAllNativeAds"
-    val FORCE_SHOW_OFFLINE_ALL_NATIVE_ADS = booleanPreferencesKey("isForceShowOfflineAllNativeAds")
-
     val SKIP_ALL_NATIVE_ADS_KEY = "isSkipAllNativeAds"
     val SKIP_ALL_NATIVE_ADS = booleanPreferencesKey("isSkipAllNativeAds")
-
-    val SKIP_LANGUAGE_NATIVE_ADS_KEY = "isSkipLanguageNativeAds"
-    val SKIP_LANGUAGE_NATIVE_ADS = booleanPreferencesKey("isSkipLanguageNativeAds")
-
-    val NATIVE_ADS_KEY = "NativeAds"
-    val NATIVE_ADS = booleanPreferencesKey("NativeAds")
 
     val GAP_BETWEEN_INTER_ADS_IN_SECOND_KEY = "gapBetweenInterAdsInSecond"
     val GAP_BETWEEN_INTER_ADS_IN_SECOND = booleanPreferencesKey("gapBetweenInterAdsInSecond")
@@ -44,9 +30,6 @@ object AdsDataStoreKeys {
 
     val INTERSTITIAL_ADS_KEY = "InterstitialAds"
     val INTERSTITIAL_ADS = booleanPreferencesKey("InterstitialAds")
-
-    val FORCE_SHOW_OFFLINE_ALL_BANNER_ADS_KEY = "isForceShowOfflineAllBannerAds"
-    val FORCE_SHOW_OFFLINE_ALL_BANNER_ADS = booleanPreferencesKey("isForceShowOfflineAllBannerAds")
 
     val SKIP_ALL_BANNER_ADS_KEY = "isSkipAllBannerAds"
     val SKIP_ALL_BANNER_ADS = booleanPreferencesKey("isSkipAllBannerAds")
@@ -78,5 +61,13 @@ object AdsDataStoreKeys {
     val SHOW_BANNER_SHIMMER_LAYOUT_KEY = "showBannerShimmerLayout"
     val SHOW_BANNER_SHIMMER_LAYOUT = booleanPreferencesKey("showBannerShimmerLayout")
 
+    val LANGUAGE_NATIVE_ADS_KEY = "LanguageNativeAds"
+    val LANGUAGE_NATIVE_ADS = booleanPreferencesKey("LanguageNativeAds")
+
+    val HELP_NATIVE_ADS_KEY = "HelpNativeAds"
+    val HELP_NATIVE_ADS = booleanPreferencesKey("HelpNativeAds")
+
+    val NATIVE_ADS_KEY = "NativeAds"
+    val NATIVE_ADS = booleanPreferencesKey("NativeAds")
 
 }

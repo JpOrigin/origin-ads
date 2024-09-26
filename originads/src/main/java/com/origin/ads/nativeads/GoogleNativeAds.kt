@@ -19,6 +19,7 @@ class GoogleNativeAds {
         }
         if (googleNativeAsLoader == null || !googleNativeAsLoader?.isLoading!!) {
             googleNativeAsLoader = AdLoader.Builder(activity, adUnitId).forNativeAd { nativeAd: NativeAd ->
+                logE("glNativeAds::loadAd:adLoaded")
                 if (activity.isDestroyed || activity.isFinishing || activity.isChangingConfigurations) {
                     nativeAd.destroy()
                     return@forNativeAd
@@ -26,15 +27,19 @@ class GoogleNativeAds {
                 mGoogleNativeAds?.destroy()
                 mGoogleNativeAds = nativeAd
                 mNativeAdsCallback?.onNativeAdLoaded(nativeAd)
-                logE("glNativeAds::loadAd:adLoaded")
             }.withAdListener(object : AdListener() {
                 override fun onAdClicked() {
                     super.onAdClicked()
                     GoogleAppOpenAdManager.skipAppOpenAdsOnce()
                 }
 
+                override fun onAdImpression() {
+                    super.onAdImpression()
+                    logE("glNativeAds::loadAd:adShowed")
+                }
+
                 override fun onAdFailedToLoad(adError: LoadAdError) {
-                    logE("glNativeAds::loadAd:adFailedToLoad:: ${adError.message}")
+                    logE("glNativeAds::loadAd:adFailedToLoad: ${adError.message}")
                     mNativeAdsCallback?.onNativeAdFailedToLoad()
                 }
             }).withNativeAdOptions(NativeAdOptions.Builder().build()).build()
@@ -48,12 +53,20 @@ class GoogleNativeAds {
         mNativeAdsCallback = null
         if (mGoogleNativeAds != null) {
             mGoogleNativeAds?.let {
-                logE("glNativeAds::show:callShowAds")
+                logE("glNativeAds::alreadyLoaded:adShowed")
                 adsCallback.onNativeAdLoaded(it)
             }
         } else {
-            mNativeAdsCallback = adsCallback
-            load(activity, adUnitId)
+            if (adUnitId.isNotEmpty() && !adUnitId.startsWith(" ") && adUnitId != "none") {
+                mNativeAdsCallback = adsCallback
+                load(activity, adUnitId)
+            } else {
+                adsCallback.onNativeAdFailedToLoad()
+            }
         }
+    }
+
+    fun destroyLoadedAds() {
+        mGoogleNativeAds?.destroy()
     }
 }

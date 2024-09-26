@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         // initialize app open ads
         initializeAppOpenAds()
         initializeInterstitialAds()
@@ -118,12 +119,7 @@ class MainActivity : AppCompatActivity() {
     private fun initializeAppOpenAds() {
         MyApplication.getInstance().apply {
             mGoogleAppOpenAdManager = GoogleAppOpenAdManager()
-            val adsUnitId = if (this@MainActivity.mAdsSharedPref.mIsForceShowOfflineAppOpenAds) {
-                this@MainActivity.mAdsSharedPref.mOfflineAppOpenAds
-            } else {
-                this@MainActivity.mAdsSharedPref.mAppOpenAds
-            }
-            mGoogleAppOpenAdManager?.initialize(this, adsUnitId, this@MainActivity.mAdsSharedPref.mIsSkipAppOpenAds)
+            mGoogleAppOpenAdManager?.initialize(this, this@MainActivity.mAdsSharedPref.mAppOpenAds, this@MainActivity.mAdsSharedPref.mIsSkipAppOpenAds)
         }
     }
 

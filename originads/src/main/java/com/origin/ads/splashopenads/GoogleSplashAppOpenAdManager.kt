@@ -48,6 +48,9 @@ class GoogleSplashAppOpenAdManager {
         if (isLoadingSplashAd) {
             return
         }
+        if (adsUnitId.isEmpty() || adsUnitId.startsWith(" ") || adsUnitId == "none") {
+            return
+        }
         isLoadingSplashAd = true
         val request = AdRequest.Builder().build()
         logE("glSplashAppOpenAds::load:request_new_ads")
@@ -73,26 +76,25 @@ class GoogleSplashAppOpenAdManager {
         }
         if (isAdAvailable()) {
             appOpenAdSplash?.fullScreenContentCallback = object : FullScreenContentCallback() {
+                override fun onAdImpression() {
+                    super.onAdImpression()
+                    logE("glSplashAppOpenAds::show:adShowed")
+                }
                 override fun onAdDismissedFullScreenContent() {
-                    logE("glSplashAppOpenAds::show:DismissedAds")
+                    logE("glSplashAppOpenAds::show:adDismissed")
                     appOpenAdSplash = null
                     isShowingSplashAd = false
                     onShowAdCompleteListener.onShowAdComplete()
                 }
                 override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                    logE("glSplashAppOpenAds::show:FailedToShow:: ${adError.message}")
+                    logE("glSplashAppOpenAds::show:adFailedToShow:: ${adError.message}")
                     appOpenAdSplash = null
                     isShowingSplashAd = false
                     onShowAdCompleteListener.onShowAdComplete()
                 }
-                override fun onAdShowedFullScreenContent() {
-                    super.onAdShowedFullScreenContent()
-                    logE("glSplashAppOpenAds::show:ShowedAds")
-                }
             }
             isShowingSplashAd = true
             appOpenAdSplash?.show(activity)
-            logE("glSplashAppOpenAds::show:callShowAds")
             onShowAdCompleteListener.onShowAd()
         }
     }

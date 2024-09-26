@@ -29,13 +29,9 @@ import com.origin.ads.sample.databinding.AdUnifiedNativeXlBinding
 import com.origin.ads.sample.databinding.AdUnifiedNativeXxlBinding
 import com.origin.ads.sample.datastores.mAdsSharedPref
 
+
 fun Context.getInterAdsUnitId(): String {
-    val adUnitId = if (this.mAdsSharedPref.mIsForceShowOfflineAppOpenAds) {
-        this.mAdsSharedPref.mOfflineInterstitialAds
-    } else {
-        this.mAdsSharedPref.mInterstitialAds
-    }
-    return adUnitId
+    return this.mAdsSharedPref.mInterstitialAds
 }
 
 fun populateNativeXLAdView(nativeAd: NativeAd, unifiedAdBinding: AdUnifiedNativeXlBinding) {

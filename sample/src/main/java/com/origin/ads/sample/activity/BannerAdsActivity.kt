@@ -20,6 +20,9 @@ import com.origin.ads.sample.utils.beGone
 import com.origin.ads.sample.utils.beVisible
 import com.origin.ads.sample.utils.getAdSize
 import com.origin.ads.sample.utils.populateCloneBannerAdView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class BannerAdsActivity : AppCompatActivity() {
     private lateinit var mActivityBannerAdsBinding: ActivityBannerAdsBinding
@@ -36,6 +39,22 @@ class BannerAdsActivity : AppCompatActivity() {
         showGoogleBannerAd()
     }
 
+    override fun onPause() {
+        super.onPause()
+        mGoogleBannerAds?.pauseLoadedAds()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mGoogleBannerAds?.resumeLoadedAds()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mGoogleBannerAds?.destroyLoadedAds()
+    }
+
+    private var mGoogleBannerAds: GoogleBannerAds? = null
     private fun showGoogleBannerAd() {
         if (this@BannerAdsActivity.mAdsSharedPref.mIsSkipAllBannerAds) {
             mActivityBannerAdsBinding.includeGoogleBanner.rlMainGoogleBanner.beGone()
@@ -56,26 +75,29 @@ class BannerAdsActivity : AppCompatActivity() {
             mActivityBannerAdsBinding.includeGoogleBanner.flShimmerGoogleBanner.beGone()
         }
 
-        // Used_For_Get_Banner_Ads_Id
-        val adUnitId = if (this@BannerAdsActivity.mAdsSharedPref.mIsForceShowOfflineAllBannerAds) {
-            this@BannerAdsActivity.mAdsSharedPref.mOfflineBannerAds
-        } else {
-            this@BannerAdsActivity.mAdsSharedPref.mBannerAds
-        }
         // Used_For_Load_Banner_Ads
         if (!this@BannerAdsActivity.mAdsSharedPref.mIsForceBannerCloneAds) {
-            GoogleBannerAds().show(this, adUnitId, this@BannerAdsActivity.getAdSize(mActivityBannerAdsBinding.includeGoogleBanner.flGoogleBanner), object : BannerAdsCallback {
-                override fun onBannerAdLoaded(adView: AdView) {
-                    mActivityBannerAdsBinding.includeGoogleBanner.flSpaceLayout.beGone()
-                    mActivityBannerAdsBinding.includeGoogleBanner.flShimmerGoogleBanner.beGone()
-                    mActivityBannerAdsBinding.includeGoogleBanner.flGoogleBanner.removeAllViews()
-                    mActivityBannerAdsBinding.includeGoogleBanner.flGoogleBanner.addView(adView)
-                }
+            if (mGoogleBannerAds == null) {
+                mGoogleBannerAds = GoogleBannerAds()
+            }
+            CoroutineScope(Dispatchers.IO).launch {
+                runOnUiThread {
+                    mGoogleBannerAds?.show(
+                        this@BannerAdsActivity, this@BannerAdsActivity.mAdsSharedPref.mBannerAds, this@BannerAdsActivity.getAdSize(mActivityBannerAdsBinding.includeGoogleBanner.flGoogleBanner),
+                        object : BannerAdsCallback {
+                            override fun onBannerAdLoaded(adView: AdView) {
+                                mActivityBannerAdsBinding.includeGoogleBanner.flSpaceLayout.beGone()
+                                mActivityBannerAdsBinding.includeGoogleBanner.flShimmerGoogleBanner.beGone()
+                                mActivityBannerAdsBinding.includeGoogleBanner.flGoogleBanner.removeAllViews()
+                                mActivityBannerAdsBinding.includeGoogleBanner.flGoogleBanner.addView(adView)
+                            }
 
-                override fun onBannerAdFailedToLoad() {
-                    showCloneBannerAd()
+                            override fun onBannerAdFailedToLoad() {
+                                showCloneBannerAd()
+                            }
+                        })
                 }
-            })
+            }
         } else {
             showCloneBannerAd()
         }
